@@ -10,6 +10,7 @@ export class FormComponent extends LitElement {
         .form {
             display: flex;
             flex-direction: column;
+            margin-bottom: 20px;
         }
     `;
 
@@ -25,7 +26,7 @@ export class FormComponent extends LitElement {
     render() {
         return html`
             <div class="form">
-                <input type="text" .value=${this.searchText} @change=${this.updateSearchText}>
+                <input type="text" .value=${this.searchText} @keyup=${this.updateSearchText}>
                 <div>
                     <input type="checkbox" ?checked=${this.isChecked} @change=${this.updateIsChecked}>
                     Only show products in stock
@@ -35,13 +36,13 @@ export class FormComponent extends LitElement {
     }
 
     updateSearchText = e => {
-        this.searchText = e.target.value;
+        this.searchText = e.target.value.toLowerCase().trim();
         this.filterItemsList(this.searchText, this.isChecked);
     }
 
     updateIsChecked = e => {
         this.isChecked = e.target.checked;
-        this.filterItemsList(this.searchText, this.isChecked);
+        this.filterItemsList(this.searchText, this.isChecked).trim();
     }
 }
 

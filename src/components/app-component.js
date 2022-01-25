@@ -8,8 +8,16 @@ export class AppComponent extends LitElement {
 
     static styles = css`
         .container {
-            width: 40vw;
+            width: 20vw;
             margin: 0 auto;
+            margin-top: 20px;
+            background-color: white;
+            padding: 1%;
+            border-radius: 10px;
+        }
+
+        .category-text {
+            margin: 0;
         }
     `;
 
@@ -17,12 +25,14 @@ export class AppComponent extends LitElement {
         super();
 
         this.items = [
-            { name: "Football", price: "$49.99", isOutOfStack: false, category: "sporting" },
-            { name: "Baseball", price: "$9.99", isOutOfStack: false, category: "sporting" },
-            { name: "Basketball", price: "$29.99", isOutOfStack: true, category: "sporting" },
-            { name: "iPod Touch", price: "$99.99", isOutOfStack: false, category: "electronics" },
-            { name: "iPhone 5", price: "$399.99", isOutOfStack: true, category: "electronics" },
-            { name: "Nexus 7", price: "$199.99", isOutOfStack: false, category: "electronics" },
+            { name: "Sporting Goods", price: "", isOutOfStock: false, category: "sporting goods", isHeading: true },
+            { name: "Football", price: "$49.99", isOutOfStock: false, category: "sporting goods", isHeading: false },
+            { name: "Baseball", price: "$9.99", isOutOfStock: false, category: "sporting goods", isHeading: false },
+            { name: "Basketball", price: "$29.99", isOutOfStock: true, category: "sporting goods", isHeading: false },
+            { name: "Electronics", price: "", isOutOfStock: false, category: "electronics", isHeading: true },
+            { name: "iPod Touch", price: "$99.99", isOutOfStock: false, category: "electronics", isHeading: false },
+            { name: "iPhone 5", price: "$399.99", isOutOfStock: true, category: "electronics", isHeading: false },
+            { name: "Nexus 7", price: "$199.99", isOutOfStock: false, category: "electronics", isHeading: false },
         ]
 
         this.itemsToDisplay = [...this.items];
@@ -34,8 +44,19 @@ export class AppComponent extends LitElement {
                 <form-component 
                     .filterItemsList=${this.filterItemsList}
                 ></form-component>
+                <row-component
+                    .name=${"Name"}
+                    .price=${"Price"}
+                    .isHeading=${true}
+                ></row-component>
                 ${this.itemsToDisplay.map(item => html`
-                    <span>${item.name}</span>
+                    <row-component
+                        .name=${item.name}
+                        .price=${item.price}
+                        .isOutOfStock=${item.isOutOfStock}
+                        .category=${item.category}
+                        .isHeading=${item.isHeading}
+                    ></row-component>
                 `)}
             </div>
         `;
@@ -46,9 +67,13 @@ export class AppComponent extends LitElement {
         
         let filteredItems;
         if (isChecked)
-            filteredItems = tempItems.filter(item => (item.name.includes(searchText) && !item.isOutOfStack));
+            filteredItems = tempItems.filter(item => 
+                ((item.name.toLowerCase().startsWith(searchText) || 
+                item.category.startsWith(searchText)) 
+                && !item.isOutOfStock));
         else
-            filteredItems = tempItems.filter(item => item.name.includes(searchText));
+            filteredItems = tempItems.filter(item => (item.name.toLowerCase().startsWith(searchText) ||
+                item.category.startsWith(searchText)));
 
         this.itemsToDisplay = [...filteredItems];
     }
