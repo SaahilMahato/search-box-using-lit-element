@@ -42,7 +42,7 @@ export class FormComponent extends LitElement {
 
     updateIsChecked = e => {
         this.isChecked = e.target.checked;
-        this.filterItemsList(this.searchText, this.isChecked).trim();
+        this.filterItemsList(this.searchText, this.isChecked);
     }
 }
 
