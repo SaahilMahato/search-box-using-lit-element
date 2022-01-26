@@ -21,6 +21,9 @@ export class AppComponent extends LitElement {
         }
     `;
 
+    /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
@@ -38,6 +41,11 @@ export class AppComponent extends LitElement {
         this.itemsToDisplay = [...this.items];
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {HTMLElement} - HTML of the components
+     */
     render() {
         return html`
             <div class="container">
@@ -62,6 +70,12 @@ export class AppComponent extends LitElement {
         `;
     }
 
+    /**
+     * filters items of itemsList into itemsToDisplay. 
+     * 
+     * @param {String} searchText - the input text of the user used to filter from name and category.
+     * @param {Booleaan} isChecked - stores the value "only show in stock products" option.
+     */
     filterItemsList = (searchText, isChecked) => {
         const tempItems = [...this.items];
         

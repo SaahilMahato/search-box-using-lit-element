@@ -14,15 +14,24 @@ export class FormComponent extends LitElement {
         }
     `;
 
+    /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
         this.filterItemsList = () => { };
 
         this.searchText = "";
+
         this.isChecked = false;
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {HTMLElement} - HTML of the components
+     */
     render() {
         return html`
             <div class="form">
@@ -35,11 +44,21 @@ export class FormComponent extends LitElement {
         `;
     }
 
+    /**
+     * Updates the searchText property with the value of input and calls filter from parent.
+     * 
+     * @param {Event} e - event object return from searchbox.
+     */
     updateSearchText = e => {
         this.searchText = e.target.value.toLowerCase().trim();
         this.filterItemsList(this.searchText, this.isChecked);
     }
 
+    /**
+     * Updates the isChecked property with the value of input and calls filter from parent.
+     * 
+     * @param {Event} e - event object return from check box.
+     */
     updateIsChecked = e => {
         this.isChecked = e.target.checked;
         this.filterItemsList(this.searchText, this.isChecked);

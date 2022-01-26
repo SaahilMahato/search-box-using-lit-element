@@ -26,16 +26,25 @@ export class RowComponent extends LitElement {
         }
     `;
 
+    /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
         this.name = "";
         this.price = "";
-        this.isOutOfStock = false;
         this.category = "";
+
         this.isHeading = false;
+        this.isOutOfStock = false;
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {HTMLElement} - HTML of the components
+     */
     render() {
         return html`
             <div class="row">
